@@ -75,4 +75,3 @@ SQLIte allows one to explicitly state the tableName.columnName  we want to selec
 this is useful when we want data from two seperate tables.
 if we want to ibtain names from both the dogs and cats table we should run the following command 
     SELECT cats.name, dogs.name FROM cats, dogs;
-    
