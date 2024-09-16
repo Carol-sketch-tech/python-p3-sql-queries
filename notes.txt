@@ -1,0 +1,78 @@
+How to write SQL queried to retrieve and add specific data to the sqlite database tables.
+
+query referst to a sqlite statement that means to retrieve data from your database.
+example of sql query requersts were made through the SELECT statements.
+
+    SELECT * FROM cats WHERE name = " Maru"; -> this one is used to select the row that has a name value "Maru"
+    SELECT * FROM cats. -> this one is used to select all rows fom the cats table
+note that the DELETE statement is not a query statment. 
+
+Top tips you can format the output of the select statement by running the following statement before running the SELECT statements 
+.headers -> output the name of each column
+.mode column -> now we are in the column mode, enabling us to run the next two .width commands
+.width auto -> adjusts and normalizes column width.
+
+ORDER BY 
+this is a query mordifier ORDER BY.
+IT allows us to order the table rows returned by a certain SELECT statement.
+hers and exsmple of a SELECT statement that uses ORDER BY.
+
+    SELECT column_name FROM table_name ORDER BY column_name ASC|DESC
+    SELECT * FROM cats ORDER BY age;
+
+Note that when we are using order by, the default is to order in ascending order.
+if we want to specify, we can use ASC for ascending and DESC for descending.
+    SELECT * FROM cats ORDER BY age DESC;
+
+LIMIT.
+if we want the oldest cat i.e selecting extremes from the database, the cat with the highset age, we can use ORDER BY statement in conjusction with LIMIT.
+LIMIT is used to determine the number of records you want to return from a dataset.
+    SELECT * FROM cats ORDER BY age DESC LIMIT 1;
+the first part SELECT * FROM cats ORDER BY age DESC return all cats froms the table cats in the order of their 
+age from the oldest to the youngest.
+the last part LIMIT 1 return only one the odest;
+
+BETWEEN 
+say we urgently need to select all of the cats whose age is between 1 AND 3.
+to create such query we can use the BETWEEN statement.
+    SELECT name FROM cats WHERE age BETWEEN 1 AND 3;
+
+
+NULL 
+lets say that the administrator of the pets database has found a new cat. the kitty doesnt ahve a name yet, but should be added to our database righ away.
+we can data with missing values usign the NULL keyword.
+ -> lets insert a new kitty in our database where the kitty has a breed but no name.
+    INSER INTO cats (name, age, breed) VALUE (NULL, NULL, "Tabby");
+selecting that row where the name value is NULL
+    SELECT * FROM cats WHERE name IS NULL;
+
+COUNT
+this is a sql aggregation function.
+SQL aggregatipon functions are SQL statement that operate on groups of records in our database rather than individual records.
+for instance we can retrieve minimums and maximums values from a column, sum values in a column , get the average of a column's 
+value or count a number of records that meet certain conditions.
+
+COUNT will Count the number of records that meet a certain condition.
+example for a boilerplate SQL query using COUNT:
+
+    SELECT COUNT([column_name]) FROM [table name] WHERE [column name] = [value]
+    SELECT COUNT(owner_id) FROM cats WHERE owner_id = 1;
+
+
+
+GROUP BY
+This is a handy aggregate function. 
+it groups your result by a given column.
+in our table when we run the commanf SELECT * FROM cats;
+we can see that we have three cats fo the breed Tabby, but what is we had a larger databse where we couldnt easily see the nuber of cats grouped by breed ?
+thats where GROUP BY comes in 
+    SELECT breed, COUNT(breed) FROM cats GROUP BY breed;
+    SELECT breed, owner_id, COUNT(breed) FROM cats GROUP BY breed, owner_id;
+
+Note on SELECT.
+The statement SELECT name FROM cats; can also be written as follows SELECT cats.name FROM cats;
+SQLIte allows one to explicitly state the tableName.columnName  we want to select.
+this is useful when we want data from two seperate tables.
+if we want to ibtain names from both the dogs and cats table we should run the following command 
+    SELECT cats.name, dogs.name FROM cats, dogs;
+    
